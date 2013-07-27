@@ -17,13 +17,6 @@ client = redis.createClient();
 
 app.get('/', routes.index);
 
-app.get('/hello.txt', function(req, res){
-  var body = 'Hello World';
-  res.setHeader('Content-Type', 'text/plain');
-  res.setHeader('Content-Length', body.length);
-  res.end(body);
-});
-
 app.get('/playlist/push/:id/:secret', function(req, res){
   var body = req.params.id + " - " + req.params.secret;
   client.lpush("playlist", req.params.id + ";" + req.params.secret)
