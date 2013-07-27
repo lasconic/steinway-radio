@@ -1,5 +1,13 @@
-h1= title
-#input-wrapper
-  form
-    input(type='text', name='msurl')
-    button(type='submit') Submit
+extend layout
+block content
+  p
+    | Here comes youtube player
+  p
+    | Here comes the playlist
+block sidebar
+  .widget
+    h1 Request a song
+    #input-wrapper
+      form
+        input(type='text', name='msurl')
+        button(type='submit') Submit
