@@ -1,0 +1,11 @@
+{
+  "name": "steinway-radio",
+  "description": "Steinway radio app",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "express": "3.3.4"
+    , "jade": "0.34.1"
+    , "redis": "0.8.4"
+  }
+}
