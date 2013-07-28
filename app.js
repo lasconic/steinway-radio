@@ -1,5 +1,7 @@
 var express = require('express')  
-, routes = require('./routes');
+, routes = require('./routes')
+, http = require('http')
+, urlUtils = require('url');
 var app = express();
 
 // Configuration
@@ -12,13 +14,24 @@ app.configure(function(){
   app.use(express.static(__dirname + '/public'));
 });
 
+app.configure('development', function(){
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+  hostname = 'localhost'; 
+});
+
+app.configure('production', function(){
+  app.use(express.errorHandler()); 
+  hostname = 'musescore.no.de';
+});
+
 var redis = require("redis"),
 client = redis.createClient();
 
 app.get('/', routes.index);
 
 app.get('/playlist/push', function(req, res){
-  var url = req.url;
+  var url = req.param('url', 'default');
+  console.log(url)
   if(url) {
     resolveScore(url, 
       function(resp) {
@@ -33,8 +46,8 @@ app.get('/playlist/push', function(req, res){
           resp.on('end', function() {
             var score = JSON.parse(data); 
             console.log(score.id + ' - ' + score.secret + ' - ' + score.metadata.pages);                                    
-            var scoreSave = {id:score.id, secret : score.secret, pageCount:score.metadata.pages};
-            client.lpush("playlist", JSON.stringify(scoreSave), function() {
+            var scoreSave = {"id":score.id, "secret" : score.secret, "pageCount":score.metadata.pages};
+            client.lpush("playlist", JSON.stringify(scoreSave), function (error, result) {
               //publish new score to connected client
               //bayeux.getClient().publish('/' + sessionId + '/action', {
               //  command:"loadscore",

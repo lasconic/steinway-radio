@@ -1,8 +1,8 @@
 extend layout
 block content
-  p
+  #youtube-player
     | Here comes youtube player
-  p
+  #playlist
     | Here comes the playlist
 block sidebar
   .widget
@@ -10,4 +10,5 @@ block sidebar
     #input-wrapper
       form
         input(type='text', name='msurl')
-        button(type='submit') Submit
+        button(type='submit' id='submit') Submit
+    #message
