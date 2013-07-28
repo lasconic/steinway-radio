@@ -77,12 +77,13 @@ app.get('/playlist/pop', function(req, res){
         console.log(reply);
         var body = "";
         if(reply)
-          body = '(' + reply + ')';
+          body = reply;
         bayeux.getClient().publish('/notification', {
                 command:"pop",
                 score: reply
               });
         res.setHeader('Content-Type', 'application/json');
+        res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader('Content-Length', body.length);
         res.end(body);
   });
