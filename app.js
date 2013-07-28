@@ -31,11 +31,21 @@ app.configure('development', function(){
 app.configure('production', function(){
   app.use(express.errorHandler()); 
   hostname = 'musescore.no.de';
-  port = 80;
+  port = process.env.PORT || 80;
 });
 
-var redis = require("redis"),
-client = redis.createClient();
+
+var redis = require("redis");
+
+if (process.env.REDISTOGO_URL) {
+  // inside if statement
+  var rtg   = require("url").parse(process.env.REDISTOGO_URL);
+  var client = redis.createClient(rtg.port, rtg.hostname);
+  client.auth(rtg.auth.split(":")[1]); 
+} else {
+  client = redis.createClient();
+}
+
 
 app.get('/', routes.index);
 

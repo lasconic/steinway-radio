@@ -18,9 +18,9 @@
     var subscription = client.subscribe('/notification', function(message) {
     	console.log(message); 
     	if(message.command === "pop") {
-    		$("#nowplaying").html("");
+    		$("#nowplaying-track").html("");
     		var score = $.parseJSON(message.score);
-    		$("#nowplaying").append('Now Playing <a href="'+score.permalink+'">'+ score.title + '</a>');
+    		$("#nowplaying-track").append('<a href="'+score.permalink+'">'+ score.title + '</a>');
     	}
     	getPlaylist();
     });
