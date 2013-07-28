@@ -77,7 +77,7 @@ app.get('/playlist/pop', function(req, res){
         console.log(reply);
         var body = "";
         if(reply)
-          body = reply;
+          body = '(' + reply + ')';
         bayeux.getClient().publish('/notification', {
                 command:"pop",
                 score: reply
