@@ -2,6 +2,7 @@ extend layout
 block content
   #youtube-player
     | Here comes youtube player
+  #nowplaying
   #playlist
     | Here comes the playlist
 block sidebar
@@ -9,6 +10,6 @@ block sidebar
     h1 Request a song
     #input-wrapper
       form
-        input(type='text', name='msurl')
-        button(type='submit' id='submit') Submit
+        input#msurl(type='text', name='msurl')
+        button#submit(type='submit') Submit
     #message
