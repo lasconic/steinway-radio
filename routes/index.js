@@ -3,5 +3,5 @@
  */
 
 exports.index = function(req, res){
-  res.render('index', { title: 'Steinway Radio Sessions' })
+  res.render('index', { title: 'Live Piano Sessions' })
 };
